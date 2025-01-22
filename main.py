@@ -13,6 +13,7 @@ def main():
     cell2.draw()
     cell3.draw()
     cell4.draw()
+    cell1.draw_move(cell2)
     win.wait_for_close()
 
 

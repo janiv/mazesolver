@@ -31,3 +31,16 @@ class Cell:
             self._win.draw_line(top, "black")
         if self.has_bottom:
             self._win.draw_line(bottom, "black")
+
+    def draw_move(self, to_cell, undo=False):
+        if undo:
+            color = "red"
+        else:
+            color = "gray"
+        
+        center_self_x = (self._x1 + self._x2)/2
+        center_self_y = (self._y1 + self._y2)/2
+        to_cell_x = (to_cell._x1 + to_cell._x2)/2
+        to_cell_y = (to_cell._y1 + to_cell._y2)/2
+        line = Line(Point(center_self_x, center_self_y), Point(to_cell_x, to_cell_y))
+        self._win.draw_line(line, color)
