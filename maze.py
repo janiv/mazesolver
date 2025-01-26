@@ -1,8 +1,8 @@
-from Cell import *
+from cell import *
 import time
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None):
         self._x1 = x1
         self._y1 = y1
         self.num_rows = num_rows
@@ -28,8 +28,9 @@ class Maze:
         y1 = self._y1 + (j) * self.cell_size_y
         y2 = self._x1 + (j+1) * self.cell_size_y
         cell = Cell(True, True, True, True, x1, y1, x2, y2, self._win)
-        cell.draw()
-        self._animate()
+        if(self._win):
+            cell.draw()
+            self._animate()
         return cell
 
     def _animate(self):

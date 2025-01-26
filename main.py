@@ -1,7 +1,7 @@
 from tkinter import Tk, BOTH, Canvas
-from Window import *
-from Cell import *
-from Maze import *
+from window import *
+from cell import *
+from maze import *
 
 def main():
     win = Window(800, 600)

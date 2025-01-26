@@ -1,9 +1,9 @@
-from Line import *
-from Point import *
-from Window import *
+from line import *
+from point import *
+from window import *
 
 class Cell:
-    def __init__(self, has_left, has_right, has_top, has_bottom, x1, y1, x2, y2, win):
+    def __init__(self, has_left, has_right, has_top, has_bottom, x1, y1, x2, y2, win=None):
         self.has_left = has_left
         self.has_right = has_right
         self.has_top = has_top
