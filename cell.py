@@ -31,6 +31,14 @@ class Cell:
             self._win.draw_line(top, "black")
         if self.has_bottom:
             self._win.draw_line(bottom, "black")
+        if not self.has_left:
+            self._win.draw_line(left, "white")
+        if not self.has_right:
+            self._win.draw_line(right, "white")
+        if not self.has_top:
+            self._win.draw_line(top, "white")
+        if not self.has_bottom:
+            self._win.draw_line(bottom, "white")
 
     def draw_move(self, to_cell, undo=False):
         if undo:
