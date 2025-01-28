@@ -3,7 +3,7 @@ import time
 import random
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None, seed=None):
         self._x1 = x1
         self._y1 = y1
         self.num_rows = num_rows
@@ -11,8 +11,13 @@ class Maze:
         self.cell_size_x = cell_size_x
         self.cell_size_y = cell_size_y
         self._win = win
+        if seed is not None:
+            self.seed = random.seed(seed)
+        else:
+            self.seed = random.seed()
         self._cells = self._create_cells()
         self._draw_cell()
+
 
     def _create_cells(self):
         cells = []
@@ -53,4 +58,23 @@ class Maze:
         else:
             bottom_right_cell.has_right = False
         self._draw_cell()
+
+    def _break_walls_r(self, i, j):
+        curr_cell = self._cells[i][j]
+        curr_cell.visited = True
+        going = True
+        while(going):
+            to_visit = []
+
+
+    def isVisitable(self, i, j):
+        if i<0 or j<0:
+            return False
+        if i>= self.num_rows or j>=self.num_cols:
+            return False
+        if self._cells[i][j].visited:
+            return False
+        return True
+
+
 
