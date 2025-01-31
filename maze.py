@@ -21,9 +21,9 @@ class Maze:
 
     def _create_cells(self):
         cells = []
-        for i in range(0, self.num_cols):
+        for i in range(0, self.num_rows):
             temp = []
-            for j in range(0, self.num_rows):
+            for j in range(0, self.num_cols):
                 x1 = self._x1 + (i) * self.cell_size_x
                 x2 = self._x1 + (i+1) * self.cell_size_x
                 y1 = self._y1 + (j) * self.cell_size_y
@@ -46,15 +46,16 @@ class Maze:
 
     def _break_entrance_and_exit(self):
         top_left_cell = self._cells[0][0]
-        bottom_right_cell = self._cells[-1][-1]
+        bottom_right_cell = self._cells[self.num_rows-1][self.num_cols-1]
         top_val = random.randint(0,1)
         bot_val = random.randint(0,1)
+        print(bot_val)
         if top_val == 1:
             top_left_cell.has_left = False
         else:
             top_left_cell.has_top = False
         if bot_val == 1:
-            bottom_right_cell.has_bot = False
+            bottom_right_cell.has_bottom = False
         else:
             bottom_right_cell.has_right = False
         self._draw_cell()
@@ -65,6 +66,40 @@ class Maze:
         going = True
         while(going):
             to_visit = []
+            left = (i-1,j)
+            right = (i+1,j)
+            up = (i,j-1)
+            down= (i,j+1)
+            # Check which directions are visitable
+            if self.isVisitable(left[0], left[1]):
+                to_visit.append(left)
+            if self.isVisitable(right[0], right[1]):
+                to_visit.append(right)
+            if self.isVisitable(up[0], up[1]):
+                to_visit.append(up)
+            if self.isVisitable(down[0], down[1]):
+                to_visit.append(down)
+            if len(to_visit) == 0:
+                return
+            # Pick random direction
+            dir = random.randint(0, len(to_visit)-1)
+            choice = to_visit[dir]
+            next_cell = self._cells[choice[0]][choice[1]]
+            # Knock down walls
+            if choice == left:
+                curr_cell.has_left = False
+                next_cell.has_right = False
+            if choice == right:
+                curr_cell.has_right = False
+                next_cell.has_left = False
+            if choice == up:
+                curr_cell.has_top = False
+                next_cell.has_bottom = False
+            if choice == down:
+                curr_cell.has_bottom = False
+                next_cell.has_top = False
+            self._break_walls_r(choice[0], choice[1])
+
 
 
     def isVisitable(self, i, j):
