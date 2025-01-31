@@ -49,7 +49,6 @@ class Maze:
         bottom_right_cell = self._cells[self.num_rows-1][self.num_cols-1]
         top_val = random.randint(0,1)
         bot_val = random.randint(0,1)
-        print(bot_val)
         if top_val == 1:
             top_left_cell.has_left = False
         else:
@@ -100,7 +99,10 @@ class Maze:
                 next_cell.has_top = False
             self._break_walls_r(choice[0], choice[1])
 
-
+    def _reset_cells_visited(self):
+        for cl in self._cells:
+            for c in cl:
+                c.visited = False
 
     def isVisitable(self, i, j):
         if i<0 or j<0:
