@@ -104,6 +104,66 @@ class Maze:
             for c in cl:
                 c.visited = False
 
+    def solve(self):
+        return self._solve_r(0,0)
+    
+    def _solve_r(self, i, j):
+        self._animate()
+        curr_cell = self._cells[i][j]
+        curr_cell.visited = True
+        if(i == self.num_rows-1 and j == self.num_cols-1):
+            return True
+        left = (i-1, j)
+        right = (i+1, j)
+        up = (i, j-1)
+        down = (i, j+1)
+
+        # handle left
+        if self.isVisitable(left[0], left[1]):
+            left_cell = self._cells[left[0]][left[1]]
+            if not left_cell.has_right:
+                curr_cell.draw_move(left_cell, False)
+                if self._solve_r(left[0], left[1]):
+                    return True
+                else:
+                    curr_cell.draw_move(left_cell, True)
+        
+        # handle right
+        if self.isVisitable(right[0], right[1]):
+            right_cell = self._cells[right[0]][right[1]]
+            if not right_cell.has_left:
+                curr_cell.draw_move(right_cell, False)
+                if self._solve_r(right[0], right[1]):
+                    return True
+                else:
+                    curr_cell.draw_move(right_cell, True)
+
+        # handle up
+        if self.isVisitable(up[0], up[1]):
+            up_cell = self._cells[up[0]][up[1]]
+            if not up_cell.has_bottom:
+                curr_cell.draw_move(up_cell, False)
+                if self._solve_r(up[0], up[1]):
+                    return True
+                else:
+                    curr_cell.draw_move(up_cell, True)
+
+        #handle down
+        if self.isVisitable(down[0], down[1]):
+            down_cell = self._cells[down[0]][down[1]]
+            if not down_cell.has_top:
+                curr_cell.draw_move(down_cell, False)
+                if self._solve_r(down[0], down[1]):
+                    return True
+                else:
+                    curr_cell.draw_move(down_cell, True)
+        return False
+            
+            
+            
+
+
+
     def isVisitable(self, i, j):
         if i<0 or j<0:
             return False

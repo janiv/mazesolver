@@ -43,9 +43,9 @@ class Cell:
 
     def draw_move(self, to_cell, undo=False):
         if undo:
-            color = "red"
-        else:
             color = "gray"
+        else:
+            color = "red"
         
         center_self_x = (self._x1 + self._x2)/2
         center_self_y = (self._y1 + self._y2)/2
